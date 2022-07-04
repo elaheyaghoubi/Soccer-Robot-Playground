@@ -16,11 +16,14 @@ class Robot {
         string errorInfo;
         double movementSpeedX;
         double movementSpeedY;
+        double globalmovementSpeedX;
+        double globalmovementSpeedY;        
         double rotationSpeed;
         double lastMovementSpeedX;
         double lastMovementSpeedY;
         double lastRotationSpeed;
         double updateTime;
+        double constTime;
     public:
         //-- Config Robot's Spawn Position
         void robotSet();

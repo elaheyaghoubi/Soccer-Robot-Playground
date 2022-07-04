@@ -157,15 +157,19 @@ void Robot::setVelocity(double Vx, double Vy, double Vtetha) {
 
 //-- Updates Robot's Position
 void Robot::Action() {
-    cout << endl << "T: " << updateTime << endl;
     //-- Movement Part
-    robotX = robotX + movementSpeedX * updateTime;
-    robotY = robotY + movementSpeedY * updateTime;
+    globalmovementSpeedX = movementSpeedX * cos(robotTetha) + movementSpeedY * sin(-robotTetha);
+    globalmovementSpeedY = movementSpeedY * cos(-robotTetha) + movementSpeedX * sin(robotTetha);
+    robotX = robotX - globalmovementSpeedX * updateTime;
+    robotY = robotY - globalmovementSpeedY * updateTime;
+    cout << "-----------" << endl;
+    cout << robotX << endl << robotY << endl << endl << robotX + movementSpeedX * updateTime << endl << robotY + movementSpeedY * updateTime << endl;
+    cout << "wtf ?" << movementSpeedX << " - " << movementSpeedY << endl;
+    cout << "utime : " << updateTime << endl;
+    // robotX = robotX + movementSpeedX * updateTime;
+    // robotY = robotY + movementSpeedY * updateTime;
     //-- Rotation Part
-    robotTetha += rotationSpeed * updateTime;
-    cout << endl << robotX << " - " << robotY << endl;
-    cout << movementSpeedX << " - " << movementSpeedY << endl;
-    cout << endl << updateTime;
+    robotTetha -= rotationSpeed * updateTime;
 }
 
 //-- Robot X Value Implementor
@@ -180,5 +184,5 @@ void Robot::setY(double input){
 
 //-- Robot Tetha Value Implementor
 void Robot::setTetha(double input){
-    robotTetha += input; 
+    robotTetha = input; 
 }
