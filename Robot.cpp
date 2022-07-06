@@ -162,12 +162,6 @@ void Robot::Action() {
     globalmovementSpeedY = movementSpeedY * cos(-robotTetha) + movementSpeedX * sin(robotTetha);
     robotX = robotX - globalmovementSpeedX * updateTime;
     robotY = robotY - globalmovementSpeedY * updateTime;
-    cout << "-----------" << endl;
-    cout << robotX << endl << robotY << endl << endl << robotX + movementSpeedX * updateTime << endl << robotY + movementSpeedY * updateTime << endl;
-    cout << "wtf ?" << movementSpeedX << " - " << movementSpeedY << endl;
-    cout << "utime : " << updateTime << endl;
-    // robotX = robotX + movementSpeedX * updateTime;
-    // robotY = robotY + movementSpeedY * updateTime;
     //-- Rotation Part
     robotTetha -= rotationSpeed * updateTime;
 }
