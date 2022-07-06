@@ -6,18 +6,18 @@
 //-- Robot Class
 class Robot {
     private:
-        double robotX;
-        double robotY;
+        double x;
+        double y;
         double robotLastX;
         double robotLastY;
-        double robotTetha;
+        double theta;
         double robotLastTetha;
         int checkValue;
         string errorInfo;
         double movementSpeedX;
         double movementSpeedY;
         double globalmovementSpeedX;
-        double globalmovementSpeedY;        
+        double globalmovementSpeedY;
         double rotationSpeed;
         double lastMovementSpeedX;
         double lastMovementSpeedY;
@@ -32,7 +32,7 @@ class Robot {
         //-- Position Accessors
         double accessX();
         double accessY();
-        double accessTetha();
+        double accessTheta();
         void setX(double);
         void setY(double);
         void setTetha(double);
