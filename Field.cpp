@@ -19,7 +19,7 @@ double goalWidth = 2.6;
 double goalDepth = 0.6;
 //-- Middle Circle Diameter (in Meter)
 double middleCircle1 = 0.1;
-double middleCircle2 = 1.5 ;
+double middleCircle2 = 1.5;
 //-- Middle Line Size
 double middleLine = 6;
 
@@ -36,24 +36,24 @@ double windowWidth = (fieldWidth + 2 * fieldPadding);
 double windowLength = (fieldLength + 2 * fieldPadding);
 
 //-- Constructor to Set Default Values
-Field::Field(){
+Field::Field() {
     double Scale = modelScale * 12;
-    if (Scale >= 2500){
+    if (Scale >= 2500) {
         fontSize = 1.7;
         lineSize = 4;
     }
-    else if (Scale > 1550 && Scale < 2500){
+    else if (Scale > 1550 && Scale < 2500) {
         fontSize = 1.2;
         lineSize = 4;
     }
-    else{
+    else {
         fontSize = 0.6;
         lineSize = 1;
     }
 }
 
 //--Makes the Field
-void Field::fieldCreate(){
+void Field::fieldCreate() {
     //-- Creates the Window
     Ground = Mat(windowWidth * modelScale, windowLength * modelScale, CV_8UC3, Scalar(fieldBGBlue, fieldBGGreen, fieldBGRed));
     //--------------
@@ -116,6 +116,6 @@ void Field::fieldCreate(){
     rectangle(Ground, goalCornerTop2, goalCornerDown2, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);
 }
 
-Mat Field::Access(){
+Mat Field::Access() {
     return Ground;
 }

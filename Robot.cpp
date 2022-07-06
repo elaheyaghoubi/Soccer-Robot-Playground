@@ -168,16 +168,16 @@ void Robot::Action() {
 }
 
 //-- Robot X Value Implementor
-void Robot::setX(double input){
-    x = input; 
+void Robot::setX(double input) {
+    x = input;
 }
 
 //-- Robot Y Value Implementor
-void Robot::setY(double input){
-    y = input; 
+void Robot::setY(double input) {
+    y = input;
 }
 
 //-- Robot Tetha Value Implementor
-void Robot::setTetha(double input){
-    theta = input; 
+void Robot::setTetha(double input) {
+    theta = input;
 }
