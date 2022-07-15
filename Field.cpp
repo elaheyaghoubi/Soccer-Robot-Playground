@@ -11,6 +11,8 @@ double fieldPadding = 1;
 //-- Penalty Area (in Meter)
 double penaltyAreaWidth = 5;
 double penaltyAreaLength = 2;
+double penaltyMarkDistance = 1.5;
+double penaltyMarkRadius = 0.11;
 //-- Goal Area (in Meter)
 double goalAreaWidth = 3;
 double goalAreaLength = 1;
@@ -18,8 +20,8 @@ double goalAreaLength = 1;
 double goalWidth = 2.6;
 double goalDepth = 0.6;
 //-- Middle Circle Diameter (in Meter)
-double middleCircle1 = 0.1;
-double middleCircle2 = 1.5;
+double middleCircle1 = 0.11;
+double middleCircle2 = 1.5 ;
 //-- Middle Line Size
 double middleLine = 6;
 
@@ -36,24 +38,24 @@ double windowWidth = (fieldWidth + 2 * fieldPadding);
 double windowLength = (fieldLength + 2 * fieldPadding);
 
 //-- Constructor to Set Default Values
-Field::Field() {
+Field::Field(){
     double Scale = modelScale * 12;
-    if (Scale >= 2500) {
+    if (Scale >= 2500){
         fontSize = 1.7;
         lineSize = 4;
     }
-    else if (Scale > 1550 && Scale < 2500) {
+    else if (Scale > 1550 && Scale < 2500){
         fontSize = 1.2;
         lineSize = 4;
     }
-    else {
+    else{
         fontSize = 0.6;
         lineSize = 1;
     }
 }
 
-//--Makes the Field
-void Field::fieldCreate() {
+//-- Makes the Field
+void Field::fieldCreate(){
     //-- Creates the Window
     Ground = Mat(windowWidth * modelScale, windowLength * modelScale, CV_8UC3, Scalar(fieldBGBlue, fieldBGGreen, fieldBGRed));
     //--------------
@@ -89,33 +91,34 @@ void Field::fieldCreate() {
     //- Enemy :
     Point goalCornerTop2((windowLength - fieldPadding) * modelScale, (windowWidth - goalWidth) * half * modelScale);
     Point goalCornerDown2((windowLength - fieldPadding + goalDepth) * modelScale, (windowWidth + goalWidth) * half * modelScale);
-
+    //-- Penalty Marks
+    Point penaltyMarkRight((fieldPadding + penaltyMarkDistance) * modelScale, windowWidth * half * modelScale);
+    Point penaltyMarkLeft((windowLength - fieldPadding - penaltyMarkDistance) * modelScale, windowWidth * half * modelScale);
     //------------------------
     //--| Draw with Points |--
     //------------------------
     //-- Ground
-    rectangle(Ground, topLeft, downRight, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);
-
+    rectangle(Ground, topLeft, downRight, Scalar(fieldLineBlue, fieldLineGreen, fieldLineRed), lineSize, 8, 0);
     //-- Field
-    rectangle(Ground, fieldCorner1, fieldCorner2, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);
-
+    rectangle(Ground, fieldCorner1, fieldCorner2, Scalar(fieldLineBlue, fieldLineGreen, fieldLineRed), lineSize, 8, 0);
     //-- Middle
-    line(Ground, middleLineTop, middleLineDown, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);
-    circle(Ground, middle, middleCircle1 * modelScale / 2, Scalar(fieldBlue, fieldGreen, fieldRed), -1, 8, 0);
-    circle(Ground, middle, middleCircle2 * modelScale / 2, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);
-
+    line(Ground, middleLineTop, middleLineDown, Scalar(fieldLineBlue, fieldLineGreen, fieldLineRed), lineSize, 8, 0);
+    circle(Ground, middle, middleCircle1 * modelScale * half, Scalar(fieldLineBlue, fieldLineGreen, fieldLineRed), -1, 8, 0);
+    circle(Ground, middle, middleCircle2 * modelScale * half, Scalar(fieldLineBlue, fieldLineGreen, fieldLineRed), lineSize, 8, 0);
     //-- Penalty Areas
-    rectangle(Ground, penaltyCornerTop1, penaltyCornerDown1, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);
-    rectangle(Ground, penaltyCornerTop2, penaltyCornerDown2, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);
-
-    //-- Goal Areas
-    rectangle(Ground, goalAreaCornerTop1, goalAreaCornerDown1, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);
-    rectangle(Ground, goalAreaCornerTop2, goalAreaCornerDown2, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);    
+    rectangle(Ground, penaltyCornerTop1, penaltyCornerDown1, Scalar(fieldLineBlue, fieldLineGreen, fieldLineRed), lineSize, 8, 0);
+    rectangle(Ground, penaltyCornerTop2, penaltyCornerDown2, Scalar(fieldLineBlue, fieldLineGreen, fieldLineRed), lineSize, 8, 0);
     //-- Goals
-    rectangle(Ground, goalCornerTop1, goalCornerDown1, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);
-    rectangle(Ground, goalCornerTop2, goalCornerDown2, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);
+    rectangle(Ground, goalCornerTop1, goalCornerDown1, Scalar(teamGoalBlue, teamGoalGreen, teamGoalRed), lineSize, 8, 0);
+    rectangle(Ground, goalCornerTop2, goalCornerDown2, Scalar(enemyGoalBlue, enemyGoalGreen, enemyGoalRed), lineSize, 8, 0);
+    //-- Goal Areas
+    rectangle(Ground, goalAreaCornerTop1, goalAreaCornerDown1, Scalar(fieldLineBlue, fieldLineGreen, fieldLineRed), lineSize, 8, 0);
+    rectangle(Ground, goalAreaCornerTop2, goalAreaCornerDown2, Scalar(fieldLineBlue, fieldLineGreen, fieldLineRed), lineSize, 8, 0);
+    //-- Penalty Marks
+    circle(Ground, penaltyMarkRight, penaltyMarkRadius * modelScale * half, Scalar(fieldLineBlue, fieldLineGreen, fieldLineRed), -1, 8, 0);
+    circle(Ground, penaltyMarkLeft, penaltyMarkRadius * modelScale * half, Scalar(fieldLineBlue, fieldLineGreen, fieldLineRed), -1, 8, 0);
 }
 
-Mat Field::Access() {
+Mat Field::Access(){
     return Ground;
 }
